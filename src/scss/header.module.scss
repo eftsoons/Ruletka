@@ -1,0 +1,21 @@
+.header {
+  background-color: var(--tgui--button_color);
+  padding: 0.75rem;
+  width: 100%;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.headertext {
+  display: flex;
+  flex-direction: column;
+  color: "red";
+}
+
+.img {
+  border-radius: 999px;
+  width: 2.5rem;
+  height: 2.5rem;
+}
