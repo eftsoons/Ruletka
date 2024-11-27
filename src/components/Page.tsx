@@ -45,8 +45,8 @@ export function Page({
           overflow: "auto",
           background:
             location != "/ref"
-              ? 'url("/ruletka/background.png")'
-              : 'url("/ruletka/background2.png")',
+              ? 'url("/Ruletka/background.png")'
+              : 'url("/Ruletka/background2.png")',
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundColor: location != "/ref" ? "black" : "white",

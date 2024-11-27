@@ -58,10 +58,9 @@ export function App() {
     miniApp.ready();
 
     postEvent("web_app_expand");
-    postEvent("web_app_expand");
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.style.setProperty(
       "--tg-theme-button-color",
       "#ae2573"
@@ -72,6 +71,18 @@ export function App() {
       "#ae2573"
     );
   }, [isDark]);
+
+  /*useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--tg-theme-button-color",
+      "#ae2573"
+    );
+
+    document.documentElement.style.setProperty(
+      "--tg-theme-link-color",
+      "#ae2573"
+    );
+  }, [isDark]);*/
 
   useEffect(() => {
     axios
@@ -95,11 +106,17 @@ export function App() {
       });
   }, []);
 
+  /*
+    margin: 0 !important;
+  padding: 0 !important;
+
+  */
+
   return (
     <AppRoot
       appearance={"light"}
       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
-      style={{ height: "100%" }}
+      style={{ height: "100vh", width: "100vw" }}
     >
       <Provider store={store}>
         <Router location={location} navigator={reactNavigator}>
