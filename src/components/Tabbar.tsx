@@ -4,8 +4,6 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import style from "@/scss/header.module.scss";
 import { useSelector } from "react-redux";
 import { Store } from "@/redux";
-import { initNavigator } from "@telegram-apps/sdk";
-import { useMemo } from "react";
 import Add from "@/svg/add";
 import Main from "@/svg/main";
 

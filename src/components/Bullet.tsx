@@ -1,5 +1,3 @@
-import { Text } from "@telegram-apps/telegram-ui";
-
 import style from "@/scss/bullet.module.scss";
 import { useSelector } from "react-redux";
 import { Store } from "@/redux";
