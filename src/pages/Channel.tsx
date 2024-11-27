@@ -4,13 +4,19 @@ import {
   openTelegramLink,
   retrieveLaunchParams,
 } from "@telegram-apps/sdk-react";
-import { Button, Caption } from "@telegram-apps/telegram-ui";
+import { Button, Caption, Snackbar } from "@telegram-apps/telegram-ui";
 import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export function Channel() {
+export function Channel({
+  snackbar,
+  setsnackbar,
+}: {
+  snackbar: JSX.Element;
+  setsnackbar: Function;
+}) {
   const channel = useSelector((data: Store) => data.channel);
 
   const dispatch = useDispatch();
@@ -33,7 +39,6 @@ export function Channel() {
     >
       <div
         style={{
-          height: "80%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -44,10 +49,11 @@ export function Channel() {
         <Caption
           weight={"2"}
           style={{
-            fontSize: "1rem",
+            fontSize: "1.5rem",
             textAlign: "center",
             marginBottom: "1rem",
             color: "black",
+            lineHeight: "1.2",
           }}
         >
           Чтобы пользоваться нашим ботом бесплатно, подпишись на каналы наших
@@ -70,7 +76,7 @@ export function Channel() {
         </div>
       </div>
       <Button
-        style={{ position: "absolute", width: "95%", bottom: "1rem" }}
+        style={{ position: "absolute", width: "95%", bottom: "1.5rem" }}
         onClick={() =>
           axios
             .post(`${import.meta.env.VITE_API_URL}/`, {
@@ -84,6 +90,23 @@ export function Channel() {
                 dispatch({ type: "SET_BULLET", payload: data.userinfo.bullet });
 
                 navigate("/");
+              } else if (data.type == "channel") {
+                dispatch({ type: "SET_SNACKBAR", payload: true });
+                if (!snackbar) {
+                  setsnackbar(
+                    <Snackbar
+                      style={{ zIndex: "3" }}
+                      onClose={() => {}}
+                      duration={2000}
+                    >
+                      Вы не подписались на один из каналов
+                    </Snackbar>
+                  );
+
+                  setTimeout(() => {
+                    setsnackbar(null);
+                  }, 2150);
+                }
               }
             })
         }

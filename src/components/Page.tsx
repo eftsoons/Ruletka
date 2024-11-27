@@ -1,10 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { backButton } from "@telegram-apps/sdk-react";
-import { CSSProperties, PropsWithChildren, useEffect } from "react";
+import { CSSProperties, PropsWithChildren, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { Store } from "@/redux";
 import { Spinner } from "@telegram-apps/telegram-ui";
+
+import stylescss from "@/scss/page.module.scss";
 
 export function Page({
   children,
@@ -34,6 +36,23 @@ export function Page({
 
   const location = useLocation().pathname;
 
+  const [isBackgroundLoaded, setIsBackgroundLoaded] = useState(false);
+  const [isBackgroundLoaded2, setIsBackgroundLoaded2] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/Ruletka/background.png";
+    img.onload = () => {
+      setIsBackgroundLoaded(true);
+    };
+
+    const img2 = new Image();
+    img2.src = "/Ruletka/background2.png";
+    img2.onload = () => {
+      setIsBackgroundLoaded2(true);
+    };
+  }, []);
+
   return (
     <AnimatePresence>
       <motion.div
@@ -41,22 +60,27 @@ export function Page({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
+        className={stylescss.main}
         style={{
           overflow: "auto",
           background:
             location != "/ref"
-              ? 'url("/Ruletka/background.png")'
-              : 'url("/Ruletka/background2.png")',
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: location != "/ref" ? "black" : "white",
+              ? location == "/"
+                ? isBackgroundLoaded
+                  ? 'url("/Ruletka/background.png")'
+                  : ""
+                : ""
+              : isBackgroundLoaded2
+              ? 'url("/Ruletka/background2.png")'
+              : "",
           margin: 0,
+          overflowX: "hidden",
           ...style,
         }}
       >
-        {segments ||
+        {(isBackgroundLoaded && segments) ||
         (location == "/channel" && channel) ||
-        location == "/ref" ? (
+        (location == "/ref" && isBackgroundLoaded2) ? (
           children
         ) : (
           <div

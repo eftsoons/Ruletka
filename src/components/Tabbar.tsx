@@ -27,6 +27,7 @@ export function TabBar() {
         height: "100%",
         padding: "0",
         margin: "0",
+        overflowX: "hidden",
       }}
     >
       <header className={style.header}>

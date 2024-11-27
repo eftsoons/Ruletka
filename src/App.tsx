@@ -6,11 +6,10 @@ import {
   postEvent,
 } from "@telegram-apps/sdk-react";
 import { AppRoot } from "@telegram-apps/telegram-ui";
-import { Navigate, Route, Routes, Router } from "react-router-dom";
-import { TabBar } from "@/components/Tabbar";
+import { Router } from "react-router-dom";
 
-import { routes } from "@/navigation/routes.tsx";
-import { useEffect, useLayoutEffect, useMemo } from "react";
+import RoutesMain from "@/navigation/routes.tsx";
+import { useEffect, useLayoutEffect, useMemo, useState } from "react";
 
 import { initNavigator, retrieveLaunchParams } from "@telegram-apps/sdk";
 import { useIntegration } from "@telegram-apps/react-router-integration";
@@ -29,7 +28,9 @@ axiosRetry(axios, {
 
 export function App() {
   const lp = useLaunchParams();
-  const isDark = useSignal(miniApp.isDark);
+  //const isDark = useSignal(miniApp.isDark);
+
+  const [snackbar, setsnackbar] = useState<any>(null);
 
   const navigator = useMemo(() => initNavigator("RULETKAWB"), []);
   const [location, reactNavigator] = useIntegration(navigator);
@@ -60,7 +61,7 @@ export function App() {
     postEvent("web_app_expand");
   }, []);
 
-  useLayoutEffect(() => {
+  /*useLayoutEffect(() => {
     document.documentElement.style.setProperty(
       "--tg-theme-button-color",
       "#ae2573"
@@ -70,21 +71,34 @@ export function App() {
       "--tg-theme-link-color",
       "#ae2573"
     );
-  }, [isDark]);
-
-  /*useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--tg-theme-button-color",
-      "#ae2573"
-    );
-
-    document.documentElement.style.setProperty(
-      "--tg-theme-link-color",
-      "#ae2573"
-    );
-  }, [isDark]);*/
+  }, []);*/
 
   useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--tg-theme-button-color",
+      "#ae2573"
+    );
+
+    document.documentElement.style.setProperty(
+      "--tg-theme-link-color",
+      "#ae2573"
+    );
+  });
+
+  useEffect(() => {
+    /*setsnackbar(
+      <Snackbar
+        style={{ zIndex: "3" }}
+        onClose={() => {
+          //он баганный
+        }}
+        duration={10000}
+        description={"asd"}
+      >
+        "asd"
+      </Snackbar>
+    );*/
+
     axios
       .post(`${import.meta.env.VITE_API_URL}/`, {
         initData: launchParams.initDataRaw,
@@ -121,18 +135,16 @@ export function App() {
       <Provider store={store}>
         <Router location={location} navigator={reactNavigator}>
           {location.pathname != "/channel" ? (
-            <Routes location={location}>
-              <Route path="/" element={<TabBar />}>
-                {routes.map((route) => (
-                  <Route key={route.path} {...route} />
-                ))}
-                <Route path="*" element={<Navigate to="/" />} />
-              </Route>
-            </Routes>
+            <RoutesMain
+              location={location}
+              snackbar={snackbar}
+              setsnackbar={setsnackbar}
+            />
           ) : (
-            <Channel />
+            <Channel snackbar={snackbar} setsnackbar={setsnackbar} />
           )}
         </Router>
+        {snackbar}
       </Provider>
     </AppRoot>
   );

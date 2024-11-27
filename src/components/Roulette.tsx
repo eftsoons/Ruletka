@@ -40,7 +40,7 @@ export function Roulette({ rotate }: { rotate: number }) {
             transition: "3s",
           }}
         >
-          <WheelComponent segments={segments} size={150} />
+          <WheelComponent segments={segments} />
         </div>
       </div>
     </div>

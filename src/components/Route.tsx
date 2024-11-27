@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 
-const WheelComponent = ({
-  segments,
-  size,
-}: {
-  segments: Array<string>;
-  size: number;
-}) => {
+const WheelComponent = ({ segments }: { segments: Array<string> }) => {
   let canvasContext: CanvasRenderingContext2D | null = null;
-  const centerX = 300;
-  const centerY = 150;
+  const dpi = window.devicePixelRatio;
+
+  const centerX = 300 * dpi;
+  const centerY = 150 * dpi;
+
+  const WIDTH = 600;
+  const HEIGHT = 300;
+
+  const size = 150 * dpi;
 
   useEffect(() => {
     initCanvas();
@@ -18,6 +19,11 @@ const WheelComponent = ({
 
   const initCanvas = () => {
     let canvas = document.getElementById("canvas") as HTMLCanvasElement;
+    canvas.width = WIDTH * dpi;
+    canvas.height = HEIGHT * dpi;
+    canvas.style.width = `${WIDTH}px`;
+    canvas.style.height = `${HEIGHT}px`;
+
     if (canvas) {
       canvasContext = canvas.getContext("2d");
     }
@@ -50,7 +56,7 @@ const WheelComponent = ({
       ctx.translate(centerX, centerY);
       ctx.rotate((lastAngle + angle) / 2);
       ctx.fillStyle = "white";
-      ctx.font = "bold 1em Segoe UI Emoji";
+      ctx.font = `${16 * dpi}px bold Montserrat`;
       ctx.fillText(value.slice(0, 21), size / 2 + 20, 0);
       ctx.restore();
     }

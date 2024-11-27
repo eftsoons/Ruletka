@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-const defaultStateFronted = { bullet: 0 };
+const defaultStateFronted = { bullet: 0, snackbar: false };
 
 type Store = {
   id: number;

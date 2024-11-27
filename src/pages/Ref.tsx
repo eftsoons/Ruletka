@@ -67,7 +67,9 @@ export const Ref = () => {
           stretched={true}
           onClick={() =>
             openTelegramLink(
-              `https://t.me/${import.meta.env.VITE_API_USERNAMEBOT}?start=${id}`
+              `https://t.me/share/url?url=t.me/${
+                import.meta.env.VITE_API_USERNAMEBOT
+              }?start=${id}`
             )
           }
         >

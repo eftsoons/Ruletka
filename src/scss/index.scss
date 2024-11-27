@@ -5,11 +5,14 @@
   user-select: none;
   font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji" !important;
+  --tg-theme-button-color: #ae2573 !important;
+  --tg-theme-link-color: #ae2573 !important;
 }
 
 body {
   height: 100vh;
   overflow: hidden;
+  background-color: white;
   //background-color: var(--tg-theme-bg-color);
 }
 
