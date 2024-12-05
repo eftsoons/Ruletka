@@ -67,7 +67,7 @@ export const Ref = () => {
           stretched={true}
           onClick={() =>
             openTelegramLink(
-              `https://t.me/share/url?url=t.me/${
+              `https://t.me/share/url?url=Привет, я нашел классную рулетку WB, заходи скорее! https://t.me/${
                 import.meta.env.VITE_API_USERNAMEBOT
               }?start=${id}`
             )
@@ -84,7 +84,9 @@ export const Ref = () => {
           }}
           onClick={() =>
             copyToClipboard(
-              `https://t.me/${import.meta.env.VITE_API_USERNAMEBOT}?start=${id}`
+              `Привет, я нашел классную рулетку WB, заходи скорее! https://t.me/${
+                import.meta.env.VITE_API_USERNAMEBOT
+              }?start=${id}`
             )
           }
         >
